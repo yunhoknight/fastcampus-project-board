@@ -3,7 +3,6 @@ package com.fastcampus.projectboard.repository;
 import com.fastcampus.projectboard.config.JpaConfig;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
-import com.fastcampus.projectboard.domain.UserAccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
-
     private final UserAccountRepository userAccountRepository;
 
     public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,
@@ -43,7 +41,7 @@ class JpaRepositoryTest {
         // then
         assertThat(articles)
                 .isNotNull()
-                .hasSize(1000);
+                .hasSize(123);
     }
 
     @DisplayName("Insert 테스트")

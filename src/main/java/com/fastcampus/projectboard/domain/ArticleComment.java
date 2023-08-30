@@ -29,11 +29,11 @@ public class ArticleComment extends AuditingFields{
 
     @Setter
     @ManyToOne(optional = false)
-    private UserAccount userAccount; // 유저 정보(ID)
+    private Article article; // 게시글 (ID)
 
     @Setter
     @ManyToOne(optional = false)
-    private Article article; // 게시글 (ID)
+    private UserAccount userAccount; // 유저 정보(ID)
 
     @Setter
     @Column(nullable = false, length = 500)
@@ -41,14 +41,14 @@ public class ArticleComment extends AuditingFields{
 
     protected ArticleComment() {}
 
-    public ArticleComment(UserAccount userAccount, Article article, String content) {
-        this.userAccount = userAccount;
+    public ArticleComment(Article article, UserAccount userAccount, String content) {
         this.article = article;
+        this.userAccount = userAccount;
         this.content = content;
     }
 
     public static ArticleComment of(UserAccount userAccount, Article article, String content) {
-        return new ArticleComment(userAccount, article, content);
+        return new ArticleComment(article, userAccount, content);
     }
 
     @Override
