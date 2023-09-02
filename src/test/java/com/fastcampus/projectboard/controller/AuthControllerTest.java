@@ -2,6 +2,7 @@ package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.config.SecurityConfig;
 import com.fastcampus.projectboard.service.ArticleService;
+import com.fastcampus.projectboard.service.PaginationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class AuthControllerTest {
 
     @MockBean
     private ArticleService articleService;
+    @MockBean
+    private PaginationService paginationService;
 
     public AuthControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
