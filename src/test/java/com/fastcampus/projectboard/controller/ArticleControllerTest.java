@@ -6,8 +6,8 @@ import com.fastcampus.projectboard.domain.constant.SearchType;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
-import com.fastcampus.projectboard.request.ArticleRequest;
-import com.fastcampus.projectboard.response.ArticleResponse;
+import com.fastcampus.projectboard.dto.request.ArticleRequest;
+import com.fastcampus.projectboard.dto.response.ArticleResponse;
 import com.fastcampus.projectboard.service.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
 import com.fastcampus.projectboard.util.FormDataEncoder;
@@ -89,10 +89,11 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
-                .andExpect(model().attributeExists("articleComment"))
+                .andExpect(model().attributeExists("articleComments"))
                 .andExpect(model().attribute("totalCount", totalCount));
-        then(articleService).should().getArticle(articleId);
         then(articleService).should().getArticleWithComments(articleId);
+        then(articleService).should().getArticleCount();
+
     }
 
     @Disabled("구현 중")

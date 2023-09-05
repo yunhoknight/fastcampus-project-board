@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.config.SecurityConfig;
+import com.fastcampus.projectboard.service.ArticleCommentService;
 import com.fastcampus.projectboard.service.ArticleService;
 import com.fastcampus.projectboard.service.PaginationService;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,8 @@ public class AuthControllerTest {
 
     @MockBean
     private ArticleService articleService;
+    @MockBean
+    private ArticleCommentService articleCommentService;
     @MockBean
     private PaginationService paginationService;
 
