@@ -56,7 +56,7 @@ public class UserAccount extends AuditingFields {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserAccount that)) return false;
-        return Objects.equals(userId, that.userId) && Objects.equals(userPassword, that.userPassword) && Objects.equals(email, that.email) && Objects.equals(nickname, that.nickname) && Objects.equals(memo, that.memo);
+        return userId != null && userId.equals(that.getUserId());
     }
 
     @Override
