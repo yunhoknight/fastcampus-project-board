@@ -16,16 +16,24 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .mvcMatchers(HttpMethod.GET, "/", "/articles", "/articles/search-hashtag").permitAll()
-                        .anyRequest().authenticated())
+                        .mvcMatchers(
+                                HttpMethod.GET,
+                                "/",
+                                "/articles",
+                                "/articles/search-hashtag"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
                 .formLogin().and()
                 .logout()
-                .logoutSuccessUrl("/").and()
+                .logoutSuccessUrl("/")
+                .and()
                 .build();
     }
 
@@ -36,7 +44,6 @@ public class SecurityConfig {
                 .map(UserAccountDto::from)
                 .map(BoardPrincipal::from)
                 .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다 - username: " + username));
-
     }
 
     @Bean
