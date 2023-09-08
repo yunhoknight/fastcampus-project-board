@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // Spring security와 Thymeleaf를 함께 사용할 때 추가 필요
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // Spring security와 Thymeleaf를 함께 사용할 때 추가 필요
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
