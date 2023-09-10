@@ -2,6 +2,7 @@ package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.ArticleComment;
+import com.fastcampus.projectboard.domain.Hashtag;
 import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
@@ -14,11 +15,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,19 +32,16 @@ class ArticleCommentServiceTest {
 
     @InjectMocks private ArticleCommentService sut;
 
-    @Mock
-    private ArticleRepository articleRepository;
-    @Mock
-    private ArticleCommentRepository articleCommentRepository;
-    @Mock
-    private UserAccountRepository userAccountRepository;
+    @Mock private ArticleRepository articleRepository;
+    @Mock private ArticleCommentRepository articleCommentRepository;
+    @Mock private UserAccountRepository userAccountRepository;
 
     @DisplayName("게시글 ID로 조회하면, 해당하는 댓글 리스트를 반환한다.")
     @Test
     void givenArticleId_whenSearchingArticleComments_thenReturnsArticleComments() {
         // Given
         Long articleId = 1L;
-        ArticleComment expected = createArticleComment(1L,"content");
+        ArticleComment expected = createArticleComment("content");
         given(articleCommentRepository.findByArticle_Id(articleId)).willReturn(List.of(expected));
 
         // When
@@ -96,7 +94,7 @@ class ArticleCommentServiceTest {
         // Given
         String oldContent = "content";
         String updatedContent = "댓글";
-        ArticleComment articleComment = createArticleComment(1L, oldContent);
+        ArticleComment articleComment = createArticleComment(oldContent);
         ArticleCommentDto dto = createArticleCommentDto(updatedContent);
         given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
 
@@ -167,15 +165,12 @@ class ArticleCommentServiceTest {
         );
     }
 
-    private ArticleComment createArticleComment(Long id, String content) {
-        ArticleComment articleComment = ArticleComment.of(
+    private ArticleComment createArticleComment(String content) {
+        return ArticleComment.of(
                 createArticle(),
                 createUserAccount(),
                 content
         );
-        ReflectionTestUtils.setField(articleComment, "id", id);
-
-        return articleComment;
     }
 
     private UserAccount createUserAccount() {
@@ -189,12 +184,18 @@ class ArticleCommentServiceTest {
     }
 
     private Article createArticle() {
-        return Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
-                "content",
-                "#java"
+                "content"
         );
+        article.addHashtags(Set.of(createHashtag(article)));
+
+        return article;
+    }
+
+    private Hashtag createHashtag(Article article) {
+        return Hashtag.of("java");
     }
 
 }
