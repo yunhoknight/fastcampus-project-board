@@ -13,9 +13,9 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/board
-    username: uknow
-    password: test1234
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
   jpa:
     defer-datasource-initialization: true
     hibernate:
